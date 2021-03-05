@@ -1,0 +1,37 @@
+version: "3.4"
+services:
+  app:
+    build: .
+    entrypoint: ["npm"]
+    command: ["run", "watch"]
+    working_dir: /app
+    tty: true
+    volumes:
+      - ./:/app
+      # Will overshadow the node_modules of the container host with the
+      # preinstalled node_modules of the webui. This shall prevent host
+      # dependend node_modules to be used inside the container.
+      - node_modules:/app/node_modules
+
+  # This service shall sync the persisted node_modules from the dev-webui
+  # container over to the host. Otherwise the host node_module directory will
+  # be empty. Leading to unresolved module errors and no autocompletion in
+  # editors or IDEs. Syncing will happen everytime the package.json is changed.
+  sync-node_modules-to-host:
+    image: instrumentisto/rsync-ssh
+    entrypoint: ["/bin/sh", "-c",
+                'while true; do
+                  printf "Syncing node_modules to host...\n";
+                  rsync -az /container/node_modules/ /host/node_modules;
+                  printf "Sync complete\n";
+                  inotifyd -c /host/package.json;
+                done' ]
+    stop_grace_period: 2s
+    depends_on:
+      - app
+    volumes:
+      - ./:/host/
+      - node_modules:/container/node_modules:ro
+
+volumes:
+  node_modules:
