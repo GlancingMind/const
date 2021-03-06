@@ -3,15 +3,28 @@ services:
   app:
     build: .
     entrypoint: ["npm"]
-    command: ["run", "watch"]
-    working_dir: /app
+    command: ["run", "re:watch"]
     tty: true
+    # Must run as root, as bsb will create directories which cannot created by
+    # the node user on the bind mount due to permissions.
+    user: "root"
     volumes:
-      - ./:/app
+      - ./:/home/node/app
       # Will overshadow the node_modules of the container host with the
       # preinstalled node_modules of the webui. This shall prevent host
       # dependend node_modules to be used inside the container.
-      - node_modules:/app/node_modules
+      - node_modules:/home/node/app/node_modules
+
+  serve:
+    build: .
+    entrypoint: ["npx"]
+    command: ["npm", "run", "watch"]
+    user: "root"
+    depends_on:
+      - app
+    volumes:
+      - ./:/home/node/app
+      - node_modules:/home/node/app/node_modules
 
   # This service shall sync the persisted node_modules from the dev-webui
   # container over to the host. Otherwise the host node_module directory will
