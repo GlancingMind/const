@@ -2,9 +2,12 @@
   "name": "const",
   "version": "0.1.0",
   "scripts": {
-    "clean": "bsb -clean-world",
-    "build": "bsb -make-world",
-    "watch": "bsb -make-world -w"
+    "watch": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "re:clean": "bsb -clean-world",
+    "re:build": "bsb -make-world",
+    "re:watch": "bsb -make-world -w"
   },
   "keywords": [
     "BuckleScript",
@@ -13,6 +16,7 @@
   "author": "Sascha (aka. GlancingMind)",
   "license": "MIT",
   "devDependencies": {
-    "bs-platform": "^9.0.1"
+    "bs-platform": "^9.0.1",
+    "vite": "^2.0.5"
   }
 }
