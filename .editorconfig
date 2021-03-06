@@ -17,5 +17,8 @@ trim_trailing_whitespace = true
 [*.{json,yml}]
 indent_size = 2
 
+[*.js]
+indent_size = 2
+
 [{m,M,GNUm}akefile]
 indent_style = tab
