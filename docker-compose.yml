@@ -19,7 +19,6 @@ services:
     build: .
     entrypoint: ["npx"]
     command: ["npm", "run", "watch"]
-    user: "root"
     depends_on:
       - app
     volumes:
