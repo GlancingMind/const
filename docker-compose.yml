@@ -4,9 +4,11 @@ services:
     build: .
     entrypoint: ["npm"]
     command: ["run", "re:watch"]
+    # Must set tty otherwise the service will stop immediatly after first
+    # compilation.
     tty: true
-    # Must run as root, as bsb will create directories which cannot created by
-    # the node user on the bind mount due to permissions.
+    # Must run as root, as bsb will create directories which cannot be created
+    # by the node user on the bind mount due to permissions.
     user: "root"
     volumes:
       - ./:/home/node/app
@@ -19,6 +21,8 @@ services:
     build: .
     entrypoint: ["npx"]
     command: ["npm", "run", "watch"]
+    ports:
+      - "3000:3000"
     depends_on:
       - app
     volumes:
