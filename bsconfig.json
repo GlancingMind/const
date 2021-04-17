@@ -1,5 +1,4 @@
 {
-  "$schema": "https://raw.githubusercontent.com/rescript-lang/rescript-compiler/master/docs/docson/build-schema.json",
   "name": "const",
   "namespace": true,
   "version": "0.1.0",
