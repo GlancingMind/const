@@ -10,13 +10,12 @@
     "re:watch": "bsb -make-world -w"
   },
   "keywords": [
-    "BuckleScript",
     "rescript"
   ],
   "author": "Sascha (aka. GlancingMind)",
   "license": "MIT",
   "devDependencies": {
-    "bs-platform": "^9.0.1",
+    "rescript": "^9.1.1",
     "vite": "^2.0.5"
   }
 }
