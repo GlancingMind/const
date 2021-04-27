@@ -3,6 +3,10 @@
   "namespace": true,
   "version": "0.1.0",
   "sources": ["app"],
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": true
+  },
   "suffix": ".bs.js",
   "warnings": {
     "error": true
