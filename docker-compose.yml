@@ -49,5 +49,13 @@ services:
       - ./:/host/
       - node_modules:/container/node_modules:ro
 
+  git-bug:
+    image: glancingmind/git-bug
+    ports:
+      - "4000:4000"
+    command: ["webui", "--host", "0.0.0.0", "--port", "4000", "--no-open"]
+    volumes:
+      - ./:/repository
+
 volumes:
   node_modules:
