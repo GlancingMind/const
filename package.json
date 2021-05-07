@@ -9,6 +9,7 @@
     "re:build": "bsb -make-world",
     "re:watch": "bsb -make-world -w"
   },
+  "type": "module",
   "keywords": [
     "rescript"
   ],
