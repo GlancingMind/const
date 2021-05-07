@@ -1,6 +1,8 @@
 open Zora
 
-zoraBlock("Should run a test synchronously", t => {
+let default: zoraTestBlock = zora => {
+  zora->block("Should run a test synchronously", test => {
     let answer = 3.14
-    t->equal(answer, 3.14, "Should be a tasty dessert")
-})
+    test->equal(answer, 3.14, "Should be a tasty dessert")
+  })
+}

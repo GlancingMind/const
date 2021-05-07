@@ -5,6 +5,7 @@
     "watch": "vite",
     "build": "vite build",
     "serve": "vite preview",
+    "test": "pta 'test/**/*.js'",
     "re:clean": "rescript clean -with-deps",
     "re:build": "rescript build",
     "re:watch": "rescript build -w"
@@ -17,6 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "@dusty-phillips/rescript-zora": "^0.1.1",
+    "pta": "^0.2.3",
     "rescript": "^9.1.1",
     "vite": "^2.0.5"
   }
