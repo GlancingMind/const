@@ -19,13 +19,21 @@ services:
 
   serve:
     build: .
-    entrypoint: ["npx"]
-    command: ["npm", "run", "watch"]
+    entrypoint: ["npm"]
+    command: ["run", "watch"]
     ports:
       - "3000:3000"
     volumes:
       - ./:/home/node/app
       - node_modules:/home/node/app/node_modules
+
+  test:
+    build: .
+    entrypoint: ["npm"]
+    command: ["run", "test:watch"]
+    volumes:
+      - ./:/home/node/app
+      - node_modules:/home/node/app/node_modules:ro
 
   # This service shall sync the persisted node_modules from the dev-webui
   # container over to the host. Otherwise the host node_module directory will
