@@ -2,7 +2,13 @@
   "name": "const",
   "namespace": true,
   "version": "0.1.0",
-  "sources": ["app"],
+  "sources": [
+    "app",
+    {
+      "dir": "test",
+      "type": "dev"
+    }
+  ],
   "package-specs": {
     "module": "es6",
     "in-source": true
@@ -13,5 +19,8 @@
   },
   "ignored-dirs": [
     "node_modules"
+  ],
+  "bs-dev-dependencies": [
+    "@dusty-phillips/rescript-zora"
   ]
 }
