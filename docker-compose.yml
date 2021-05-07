@@ -23,8 +23,6 @@ services:
     command: ["npm", "run", "watch"]
     ports:
       - "3000:3000"
-    depends_on:
-      - app
     volumes:
       - ./:/home/node/app
       - node_modules:/home/node/app/node_modules
