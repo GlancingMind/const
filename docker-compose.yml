@@ -1,8 +1,26 @@
 version: "3.4"
+
+x-shared-node-volume:
+  volumes: &node_modules
+    # Will overshadow the node_modules of the container host with the
+    # preinstalled node_modules of the webui. This shall prevent host
+    # dependend node_modules to be used inside the container.
+    node_modules:/home/node/app/node_modules
+  volumes: &readonly_node_modules
+    node_modules:/home/node/app/node_modules:ro
+  volumes: &mount-code
+    ./:/home/node/app
+
+x-app-service: &app-service
+  build: .
+  entrypoint: ["npm"]
+  volumes:
+    - *node_modules
+    - *mount-code
+
 services:
   app:
-    build: .
-    entrypoint: ["npm"]
+    <<: *app-service
     command: ["run", "re:watch"]
     # Must set tty otherwise the service will stop immediatly after first
     # compilation.
@@ -10,32 +28,21 @@ services:
     # Must run as root, as bsb will create directories which cannot be created
     # by the node user on the bind mount due to permissions.
     user: "root"
-    volumes:
-      - ./:/home/node/app
-      # Will overshadow the node_modules of the container host with the
-      # preinstalled node_modules of the webui. This shall prevent host
-      # dependend node_modules to be used inside the container.
-      - node_modules:/home/node/app/node_modules
 
   serve:
-    build: .
-    entrypoint: ["npm"]
+    <<: *app-service
     command: ["run", "watch"]
     ports:
       - "3000:3000"
-    volumes:
-      - ./:/home/node/app
-      - node_modules:/home/node/app/node_modules
 
   test:
-    build: .
-    entrypoint: ["npm"]
+    <<: *app-service
     command: ["run", "test:watch"]
     volumes:
-      - ./:/home/node/app
-      - node_modules:/home/node/app/node_modules:ro
+      - *mount-code
+      - *readonly_node_modules
 
-  # This service shall sync the persisted node_modules from the dev-webui
+  # This service shall sync the persisted node_modules from the dev service
   # container over to the host. Otherwise the host node_module directory will
   # be empty. Leading to unresolved module errors and no autocompletion in
   # editors or IDEs. Syncing will happen everytime the package.json is changed.
