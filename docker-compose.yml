@@ -19,9 +19,9 @@ x-app-service: &app-service
     - *mount-code
 
 services:
-  app:
+  dev:
     <<: *app-service
-    command: ["run", "re:watch"]
+    command: ["run", "build:watch"]
     # Must set tty otherwise the service will stop immediatly after first
     # compilation.
     tty: true
@@ -57,12 +57,12 @@ services:
                 done' ]
     stop_grace_period: 2s
     depends_on:
-      - app
+      - dev
     volumes:
       - ./:/host/
       - node_modules:/container/node_modules:ro
 
-  git-bug:
+  bug-tracker:
     image: glancingmind/git-bug
     ports:
       - "4000:4000"

@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "scripts": {
     "watch": "vite",
-    "build": "vite build",
+    "bundle": "vite build",
     "serve": "vite preview",
     "test": "pta 'test/**/*.js'",
     "test:watch": "onchange '{app,test}/**/*.bs.js' -- npm test",
-    "re:clean": "rescript clean -with-deps",
-    "re:build": "rescript build",
-    "re:watch": "rescript build -w"
+    "clean": "rescript clean -with-deps",
+    "build": "rescript build",
+    "build:watch": "rescript build -w"
   },
   "type": "module",
   "keywords": [

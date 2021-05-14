@@ -12,7 +12,7 @@ COPY --chown=node . .
 # to npm done by the user will fail with `EACCESS: mkdir` error. This also
 # happens when the user is root. Still not sure why this is the case, but this
 # step resolves the issue.
-RUN npm run re:build
+RUN npm run build
 # Remove lock-file if not done by above command due to race condition
 RUN rm -f .bsb.lock
 ENTRYPOINT ["npm"]
