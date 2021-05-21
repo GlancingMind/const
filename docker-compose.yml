@@ -38,6 +38,7 @@ services:
   test:
     <<: *app-service
     command: ["run", "test:watch"]
+    tty: true
     volumes:
       - *mount-code
       - *readonly_node_modules
